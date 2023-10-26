@@ -73,17 +73,17 @@ public class Village {
 			}
 		}
 		
-		void utiliserEtal(int indiceEtal, Gaulois vendeur,
-				String produit, int nbProduit) {
+		//visibilité check.
+		private void utiliserEtal(int indiceEtal, Gaulois vendeur,String produit, int nbProduit) {
 			etals[indiceEtal].occuperEtal(vendeur, produit, nbProduit);
 		}
 		
+		//à améliorer check.
 		private int trouverEtalLibre() {
 			for(int i=0; i < etals.length; i++) {
-				if(etals[i].isEtalOccupe()) {
-				}
-				else
-					return i;	
+				if(etals[i].isEtalOccupe() == false) {
+					return i;
+					}						
 			}
 			return -1;
 		}
@@ -98,8 +98,7 @@ public class Village {
 			}
 			Etal[] etalsProduits = new Etal[nbEtalProduit];
 			if (nbEtalProduit != 0) {
-				int j = 0;
-				for (int i = 0; i < etals.length; i++) {
+				for (int i = 0, j = 0; i < etals.length; i++) {
 					if (etals[i].isEtalOccupe() && etals[i].contientProduit(produit)) {
 						etalsProduits[j] = etals[i];
 						j++;
@@ -112,7 +111,7 @@ public class Village {
 		
 		private Etal trouverVendeur(Gaulois gaulois) {
 			for(int i=0; i < etals.length; i++) {
-				if(etals[i].getVendeur() == gaulois) {
+				if(etals[i].getVendeur().equals(gaulois)) {
 					return etals[i];  //"L'étal du vendeur" + gaulois + " est l'étal numéro : " + etals[i] + "." +"\n";
 				}
 			
@@ -168,7 +167,7 @@ public class Village {
 	}
 	
 	public String partirVendeur(Gaulois vendeur) {
-		Etal etals = rechercherEtal(vendeur);
+		Etal etals = rechercherEtal(vendeur); //si diff null
 		StringBuilder chaine = new StringBuilder();
 		chaine.append(etals.libererEtal());
 		return chaine.toString();
